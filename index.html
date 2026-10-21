@@ -236,9 +236,8 @@ img{display:block;max-width:100%}
   .p-title{font-size:28px;line-height:1.1}
   .p-link{flex:none;height:40px;padding:0 16px;font-size:15px}
   /* виньетки: высота сцены постоянная, фрагменты в десктопном масштабе, края обрезаются */
-  .stage{aspect-ratio:auto;height:300px;place-items:start center}
-  .stage-in{width:400px;flex:none}
-  .stage::after{content:"";position:absolute;inset:auto 0 0 0;height:48px;background:linear-gradient(to bottom,transparent,var(--tint-2));pointer-events:none}
+  /* виньетки: сцена по ширине карточки с полем, фрагменты уменьшаются целиком и стоят по центру */
+  .stage-in{width:94%}
   .grid{gap:12px;margin:0 -12px;padding:0 12px}
   .card,.grid.three .card{flex:0 0 86%;min-width:0}
   .duo{grid-template-columns:1fr}
