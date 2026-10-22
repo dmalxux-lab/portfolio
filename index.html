@@ -198,7 +198,7 @@ img{display:block;max-width:100%}
 
 
 /* инструменты вокруг аватарки, как подарки в профиле Telegram */
-.ava-wrap{position:relative;width:96px;height:96px;margin:8px 0}
+.ava-wrap{-webkit-touch-callout:none;position:relative;width:96px;height:96px;margin:8px 0}
 .gift{position:absolute;left:50%;top:50%;width:var(--s);height:var(--s);margin:calc(var(--s) / -2) 0 0 calc(var(--s) / -2);transform:translate(var(--x),var(--y));animation:gfloat 4s ease-in-out var(--d) infinite;filter:drop-shadow(0 4px 8px rgba(15,16,21,.12))}
 .gift svg{width:100%;height:100%;display:block}
 @keyframes gfloat{0%,100%{transform:translate(var(--x),var(--y))}50%{transform:translate(var(--x),calc(var(--y) - 6px))}}
@@ -206,7 +206,7 @@ img{display:block;max-width:100%}
 
 /* аватарку нажали и держат: иконки разъезжаются и остаются, отпустили — возвращаются.
    Отдельные свойства translate/rotate/scale складываются с анимацией парения */
-.ava{cursor:pointer;transition:transform .3s var(--ease);touch-action:none;-webkit-user-select:none;user-select:none;-webkit-user-drag:none}
+.ava{cursor:pointer;transition:transform .3s var(--ease);touch-action:none;-webkit-user-select:none;user-select:none;-webkit-user-drag:none;-webkit-touch-callout:none}
 .gift{transition:translate .45s cubic-bezier(.2,.9,.3,1.25),rotate .45s var(--ease),scale .45s var(--ease)}
 .ava-wrap.spread .ava{transform:scale(.92)}
 .ava-wrap.spread .gift{translate:calc(var(--x) * .45) calc(var(--y) * .2 - 8px);rotate:15deg;scale:1.15}
@@ -470,6 +470,7 @@ img{display:block;max-width:100%}
 const avaWrap=document.querySelector('.ava-wrap');
 const spread=on=>avaWrap.classList.toggle('spread',on);
 avaWrap.querySelector('.ava').addEventListener('pointerdown',e=>{e.preventDefault();spread(true)});
+avaWrap.addEventListener('contextmenu',e=>e.preventDefault());
 ['pointerup','pointercancel','blur'].forEach(t=>addEventListener(t,()=>spread(false)));
 const links=[...document.querySelectorAll('.nav a')];
 const panels=[...document.querySelectorAll('.panel')];
