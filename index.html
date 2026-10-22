@@ -91,8 +91,9 @@ img{display:block;max-width:100%}
    на широком мониторе фрагменты не раздуваются, как в портфолио-референсе на Framer */
 .stage{position:relative;aspect-ratio:4 / 3;max-height:440px;width:100%;overflow:hidden;display:grid;place-items:center}
 .stage-in{position:relative;width:min(88%,540px);aspect-ratio:4 / 3;container-type:inline-size;
-  /* режем только низ: тени наслоенных плашек свободно уходят вбок и вверх */
-  clip-path:inset(-80px -80px 0 -80px)}
+  /* низ не режем clip-path: его сглаженный край на дробном пикселе пропускает
+     светлую линию от белого фрагмента. Хвост закрывает ::after, обрезает .stage */
+}
 /* один масштаб на все фрагменты: ширина = исходные пиксели кропа x коэффициент, кегль везде одинаковый */
 .frag{position:absolute;max-width:none;height:auto;width:calc(var(--w) * .0816cqw * var(--k,1));border-radius:12px;background:#fff;
   /* без теней: фрагменты лежат на плашке плоско */
@@ -111,9 +112,11 @@ img{display:block;max-width:100%}
 .edges{position:absolute;inset:0;width:100%;height:100%;z-index:1;fill:none;stroke:#9aa3c7;stroke-width:.3}
 /* снизу растворение для высоких узлов, уходящих за край */
 .stage-in::before{content:"";position:absolute;inset:auto 0 0 0;height:14%;background:linear-gradient(to bottom,transparent,var(--tint-2));z-index:3;pointer-events:none}
+/* всё, что ниже сцены, закрыто сплошным цветом плашки; заходит на 1px внутрь, чтобы не было шва */
+.stage-in::after{content:"";position:absolute;left:-80px;right:-80px;top:calc(100% - 1px);height:600px;background:var(--tint-2);z-index:3;pointer-events:none}
 /* бокового растворения нет: компонент виден целиком по ширине, за край уходит только низ */
 /* компонент помещается целиком и по высоте: нижнее растворение не нужно */
-.stage-in.whole::before{display:none}
+.stage-in.whole::before,.stage-in.whole::after{display:none}
 .vcard:hover .frag.front{transform:translateY(-4px)}
 .v-cap{padding:24px 24px 28px}
 .v-cap b{display:block;font-size:22px;font-weight:600;letter-spacing:-.02em;line-height:1.2}
