@@ -19,7 +19,7 @@
 *{box-sizing:border-box;margin:0}
 html{scroll-behavior:smooth;scroll-padding-top:24px}
 body{font-family:Manrope,system-ui,sans-serif;color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased;font-size:16px;line-height:1.45}
-a{color:inherit;text-decoration:none}
+a{color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent}
 img{display:block;max-width:100%}
 
 .layout{display:grid;grid-template-columns:var(--side) 1fr;min-height:100vh}
@@ -38,12 +38,12 @@ img{display:block;max-width:100%}
 .me-text .tool{width:18px;height:18px}
 .me-links{display:flex;gap:8px;align-items:center;justify-content:center}
 .ic{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--line);color:var(--ink-2);transition:background .2s,color .2s}
-.ic:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+@media(hover:hover){.ic:hover{background:var(--ink);color:#fff;border-color:var(--ink)}}
 .ic svg{width:16px;height:16px}
 
 .nav{display:flex;flex-direction:column;gap:4px}
 .nav a{display:grid;grid-template-columns:40px 1fr auto;gap:4px 12px;align-items:start;padding:12px;border-radius:16px;transition:background .25s var(--ease)}
-.nav a:hover{background:#f5f6f9}
+@media(hover:hover){.nav a:hover{background:#f5f6f9}}
 .nav a.on{background:var(--tint)}
 .nav .logo{grid-row:span 2;width:40px;height:40px;border-radius:10px;overflow:hidden;display:grid;place-items:center;background:var(--tint-2);color:var(--ink-2)}
 .nav .logo img{width:100%;height:100%}
@@ -55,13 +55,13 @@ img{display:block;max-width:100%}
 .sblog{margin-top:auto;display:flex;flex-direction:column;gap:8px}
 .sblog-k{padding:0 8px 4px;font-size:13px;color:var(--ink-3)}
 .sb{display:flex;align-items:center;gap:12px;padding:10px 14px 10px 10px;border-radius:16px;background:#f5f6f9;transition:background .2s}
-.sb:hover{background:#eceef3}
+@media(hover:hover){.sb:hover{background:#eceef3}}
 .sb img{width:40px;height:40px;border-radius:50%;object-fit:cover;flex:none}
 .sb span{display:flex;flex-direction:column;min-width:0}
 .sb b{font-size:15px;font-weight:600;letter-spacing:-.01em}
 .sb small{font-size:13px;color:var(--ink-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .sb svg{margin-left:auto;width:16px;height:16px;color:var(--ink-3);flex:none;transition:transform .2s var(--ease)}
-.sb:hover svg{transform:translate(2px,-2px);color:var(--ink)}
+@media(hover:hover){.sb:hover svg{transform:translate(2px,-2px);color:var(--ink)}}
 .side-foot{padding:0 8px;font-size:13px;color:var(--ink-3)}
 
 /* ---------- лента ---------- */
@@ -72,7 +72,7 @@ img{display:block;max-width:100%}
 .panel{position:relative}
 .p-meta{margin-top:8px;font-size:14px;color:var(--ink-2)}
 .p-link{margin-left:auto;display:inline-flex;align-items:center;gap:8px;height:48px;padding:0 24px;border-radius:999px;background:rgba(255,255,255,.7);font-size:16px;font-weight:600;transition:background .2s}
-.p-link:hover{background:#fff}
+@media(hover:hover){.p-link:hover{background:#fff}}
 .p-link svg{width:16px;height:16px}
 
 .grid{display:flex;align-items:flex-start;gap:16px;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:none;margin:0 -16px;padding:0 16px;cursor:grab}
@@ -117,7 +117,7 @@ img{display:block;max-width:100%}
 /* бокового растворения нет: компонент виден целиком по ширине, за край уходит только низ */
 /* компонент помещается целиком и по высоте: нижнее растворение не нужно */
 .stage-in.whole::before,.stage-in.whole::after{display:none}
-.vcard:hover .frag.front{transform:translateY(-4px)}
+@media(hover:hover){.vcard:hover .frag.front{transform:translateY(-4px)}}
 .v-cap{padding:24px 24px 28px}
 .v-cap b{display:block;font-size:22px;font-weight:600;letter-spacing:-.02em;line-height:1.2}
 .v-cap span{display:block;margin-top:4px;font-size:16px;color:var(--ink-2)}
@@ -136,7 +136,7 @@ img{display:block;max-width:100%}
 .contact{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:40px 24px 32px}
 .contact h2{font-size:40px;font-weight:600;letter-spacing:-.035em;line-height:1.05;max-width:16ch}
 .btn{display:inline-flex;align-items:center;height:48px;padding:0 24px;border-radius:999px;background:var(--ink);color:#fff;font-weight:600;font-size:15px;flex:none;transition:background .2s}
-.btn:hover{background:var(--accent)}
+@media(hover:hover){.btn:hover{background:var(--accent)}}
 
 /* тинты продуктов */
 .t-dp{--tint:#eceffd;--tint-2:#d9dffb}
