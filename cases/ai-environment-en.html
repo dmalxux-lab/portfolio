@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="alternate" hreflang="ru" href="ai-environment.html">
+<title>AI Design Environment: case study · Dmitrii Alekseenko</title>
+<meta name="description" content="How I work with AI: agents, rulebooks, a reference library and a design pipeline in one working environment built on Claude Code.">
+<link rel="icon" href="../favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400..700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{-webkit-tap-highlight-color:rgba(0,0,0,0)}
+:focus:not(:focus-visible){outline:none}
+/* Case page inspired by bai.framer.website: narrow column, header with a centered
+   avatar, screens on product tint plates. Tokens shared with index.html. */
+:root{
+  --ink:#0f1015; --ink-2:#4a4c57; --ink-3:#8a8c97;
+  --paper:#fff; --line:#eaebf1; --soft:#f5f6f9;
+  --accent:#5b64c9;
+  --col:880px;
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+.t-dp{--tint:#eceffd;--tint-2:#d9dffb}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{font-family:Manrope,system-ui,sans-serif;color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased;font-size:16px;line-height:1.55}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+
+/* ---------- header ---------- */
+.top{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.86);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
+.top-in{max-width:calc(var(--col) + 48px);margin:0 auto;padding:0 24px;height:80px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center}
+.back{justify-self:start;display:inline-flex;align-items:center;gap:6px;height:44px;margin-left:-4px;font-size:15px;font-weight:600;color:var(--ink-2);transition:background .2s,color .2s}
+@media(hover:hover){.back:hover{color:var(--ink)}}
+.back svg{width:18px;height:18px}
+.me{display:flex;align-items:center;gap:12px;font-size:15px;font-weight:600;letter-spacing:-.01em}
+.me img{width:40px;height:40px;border-radius:12px;object-fit:cover;transition:transform .3s var(--ease)}
+@media(hover:hover){.me:hover img{transform:scale(1.06)}}
+.yr{justify-self:end;font-size:15px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+
+/* ---------- column ---------- */
+.col{max-width:calc(var(--col) + 48px);margin:0 auto;padding:0 24px}
+.hero{padding:80px 0 0}
+.hero h1{font-size:56px;font-weight:700;letter-spacing:-.04em;line-height:1.02}
+.lead{margin-top:24px;font-size:18px;color:var(--ink-2);max-width:62ch}
+.facts{display:grid;grid-template-columns:repeat(4,auto);justify-content:start;gap:8px 40px;margin-top:32px;font-size:14px}
+.facts dt{color:var(--ink-3)}
+.facts dd{margin-top:2px;font-weight:600}
+
+.sec{margin-top:72px}
+.sec h2{font-size:20px;font-weight:600;letter-spacing:-.015em;line-height:1.3}
+.sec p{margin-top:8px;color:var(--ink-2);max-width:66ch}
+.sec p b{color:var(--ink);font-weight:600}
+
+/* screen plate: product tint, screens as white cards */
+.plate{margin-top:24px;background:var(--tint);border-radius:24px;padding:32px;display:flex;flex-direction:column;gap:24px}
+.plate img{width:100%;border-radius:12px;box-shadow:0 8px 24px rgba(15,16,21,.06)}
+.cover{width:100%;border-radius:24px}
+.plate img,.cover{cursor:zoom-in}
+.lb img{cursor:pointer}
+.cap{margin-top:12px;font-size:13px;color:var(--ink-3)}
+
+/* decisions: numbered list without cards */
+.steps{margin-top:24px;display:grid;gap:0}
+.steps li:last-child{border-bottom:0}
+.steps li{list-style:none;display:grid;grid-template-columns:40px 1fr;gap:16px;padding:16px 0;border-bottom:1px solid var(--line)}
+.steps .n{font-size:13px;color:var(--ink-3);font-variant-numeric:tabular-nums;padding-top:2px}
+.steps .t{font-weight:600}
+.steps .w{margin-top:2px;font-size:15px;color:var(--ink-2)}
+.steps{padding:0}
+
+/* artifacts: preview grid, click opens the frame */
+.arts{margin-top:24px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.arts button{padding:0;border:0;border-radius:12px;overflow:hidden;background:var(--soft);aspect-ratio:3/2;cursor:zoom-in}
+.arts img{width:100%;height:100%;object-fit:cover;transition:transform .4s var(--ease)}
+@media(hover:hover){.arts button:hover img{transform:scale(1.04)}}
+/* viewer: screens page with on-screen arrows and the ← → keys */
+.lb{outline:0;margin:0;border:0;padding:0;width:100vw;height:100vh;max-width:none;max-height:none;background:transparent;overflow:hidden}
+.lb::backdrop{background:rgba(15,16,21,.86)}
+.lb[open]{display:grid;place-items:center}
+.lb img{max-width:min(1400px,calc(100vw - 160px));max-height:calc(100vh - 120px);width:auto;height:auto;border-radius:16px;background:#fff}
+.lb-btn{position:fixed;width:48px;height:48px;display:grid;place-items:center;border:0;border-radius:999px;background:rgba(255,255,255,.14);color:#fff;cursor:pointer;transition:background .2s}
+@media(hover:hover){.lb-btn:hover{background:rgba(255,255,255,.28)}}
+.lb-btn svg{width:22px;height:22px}
+.lb-x{top:16px;right:16px}
+.lb-prev{left:24px;top:50%;margin-top:-24px}
+.lb-next{right:24px;top:50%;margin-top:-24px}
+.lb-n{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);font-size:14px;color:rgba(255,255,255,.72);font-variant-numeric:tabular-nums}
+.lb.one .lb-prev,.lb.one .lb-next,.lb.one .lb-n{display:none}
+@media (max-width:860px){.lb img{max-width:calc(100vw - 32px);max-height:calc(100vh - 160px);border-radius:10px}.lb-prev,.lb-next{top:auto;bottom:12px;margin-top:0}.lb-prev{left:16px}.lb-next{right:16px}.lb-n{bottom:26px}}
+
+/* result */
+.nums{margin-top:24px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.num{background:var(--soft);border-radius:20px;padding:24px}
+.num .big{font-size:32px;font-weight:700;letter-spacing:-.035em;line-height:1;white-space:nowrap}
+.num .d{margin-top:12px;font-size:14px;color:var(--ink-2);line-height:1.45}
+
+/* next case */
+.next{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);align-items:stretch;margin-top:96px;background:var(--soft);border-radius:24px;overflow:hidden;transition:background .25s var(--ease)}
+@media(hover:hover){.next:hover{background:#eceef3}}
+.next .txt{padding:40px;display:flex;flex-direction:column;justify-content:center}
+.next .k{font-size:13px;color:var(--ink-3)}
+.next .t{margin-top:12px;font-size:36px;font-weight:700;letter-spacing:-.035em;line-height:1.05}
+.next .d{margin-top:12px;font-size:16px;color:var(--ink-2);line-height:1.5}
+.next .go{margin-top:24px;font-size:15px;font-weight:600;color:var(--ink)}
+.next .go i{font-style:normal;display:inline-block;transition:transform .3s var(--ease)}
+@media(hover:hover){.next:hover .go i{transform:translateX(4px)}}
+.next .pv{position:relative;min-height:300px;overflow:hidden}
+.next .pv img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:0 0;transition:transform .6s var(--ease)}
+@media(hover:hover){.next:hover .pv img{transform:scale(1.03)}}
+main.col{padding-bottom:96px}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(16px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.rv{opacity:1;transform:none;transition:none}}
+
+@media (max-width:860px){
+  .top-in{padding:0 16px;height:64px}
+  .me span{display:none}
+  .col{padding:0 16px}
+  .facts{grid-template-columns:1fr 1fr;gap:16px}
+  .hero{padding-top:48px}
+  .hero h1{font-size:36px}
+  .lead{font-size:16px}
+  .sec{margin-top:56px}
+  .plate{padding:12px;gap:12px;border-radius:20px}
+  .plate img{border-radius:8px}
+  .arts{grid-template-columns:1fr 1fr}
+  .nums{grid-template-columns:1fr}
+  .next{margin-top:64px;grid-template-columns:1fr}
+  .next .pv{order:-1;min-height:220px}
+  .next .txt{padding:24px}
+  .next .t{font-size:28px}
+}
+
+.t-ai{--tint:#f1f2f6;--tint-2:#e4e6ee}
+/* environment numbers and commit heatmap (git data as of 20.10.2026) */
+.ai{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.ai-c{background:#fff;border-radius:20px;padding:24px;min-width:0}
+.ai-c.w4{grid-column:1 / -1}
+/* in the wide tile the grid spans the full width: wider cells, same row height */
+.ai-c.w4 .heat{grid-auto-columns:minmax(6px,1fr);grid-template-rows:repeat(7,18px)}
+.ai-c.w4 .heat i{aspect-ratio:auto}
+.ai-k{font-size:13px;color:var(--ink-3)}
+.ai-big{margin-top:4px;font-size:40px;font-weight:700;letter-spacing:-.04em;line-height:1}
+.ai-d{margin-top:8px;font-size:14px;color:var(--ink-2);line-height:1.45}
+.heat{display:grid;grid-auto-flow:column;grid-template-rows:repeat(7,auto);grid-auto-columns:minmax(6px,1fr);gap:3px;margin-top:16px}
+.heat i{aspect-ratio:1;border-radius:3px;background:#eceef3}
+.heat .l1{background:#d6d9f3}.heat .l2{background:#aab0e8}.heat .l3{background:#7d85d8}.heat .l4{background:var(--accent)}
+/* agent areas */
+.lanes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.lane{background:#fff;border-radius:20px;padding:20px 24px}
+.lane b{display:block;font-size:17px;font-weight:600}
+.lane p{margin:4px 0 0;font-size:14px;color:var(--ink-2)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.chips span{font:500 12px/1 ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--ink-2);background:var(--soft);border-radius:8px;padding:7px 9px}
+.lane .chk{margin-top:14px;font-size:13px;color:var(--ink-3)}
+@media (max-width:860px){.ai{grid-template-columns:repeat(2,minmax(0,1fr))}.lanes{grid-template-columns:1fr}}
+@media (max-width:560px){.ai{grid-template-columns:1fr}}
+/* design pipeline diagram: stage strip and the cycle of one stage */
+.pipe .strip{display:flex;flex-wrap:wrap;gap:8px}
+.pipe .strip span{background:#fff;border-radius:999px;padding:8px 14px;font-size:13px;font-weight:600;color:var(--ink-2)}
+.pipe .strip span.on{background:var(--ink);color:#fff}
+.pipe .cycle{display:grid;grid-template-columns:1fr 24px 1fr 24px 1fr 24px 1fr;align-items:center}
+.pipe .node{background:#fff;border-radius:16px;padding:16px;min-height:112px}
+.pipe .node.hum{background:transparent;border:1.5px solid var(--ink-3)}
+.pipe .who{font-size:12px;color:var(--ink-3)}
+.pipe .node b{display:block;margin-top:6px;font-size:15px;font-weight:600;line-height:1.3}
+.pipe .node p{margin-top:4px;font-size:13px;color:var(--ink-2);line-height:1.45}
+.pipe .arr{text-align:center;color:var(--ink-3)}
+.pipe .loop{display:flex;justify-content:space-between;gap:16px;font-size:13px;color:var(--ink-3);padding:0 8px}
+@media (max-width:860px){
+  .pipe .cycle{grid-template-columns:1fr;gap:4px}
+  .pipe .node{min-height:0}
+  .pipe .arr{transform:rotate(90deg)}
+  .pipe .loop{flex-direction:column;gap:4px}
+}
+
+/* skills: own ones as rows, external ones grouped behind routers */
+.skills{display:grid;grid-template-columns:1fr;gap:12px}
+.sk.routers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:32px}
+.sk.routers .sk-h{grid-column:1 / -1}
+.sk.routers .sk-g:nth-last-child(2){border-bottom:0}
+.sk{background:#fff;border-radius:20px;padding:20px 24px}
+.sk-h{font-size:13px;color:var(--ink-3);margin-bottom:8px}
+.sk-row{display:grid;grid-template-columns:200px 1fr;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);font-size:14px;color:var(--ink-2);line-height:1.4}
+.sk-row:last-child{border-bottom:0}
+.sk-row code{font:500 12px/1.6 ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--ink)}
+.sk-g{padding:12px 0;border-bottom:1px solid var(--line)}
+.sk-g:last-child{border-bottom:0}
+.sk-g b{font-size:15px;font-weight:600}
+.sk-g p{margin:2px 0 0;font-size:14px;color:var(--ink-2)}
+.shot-dark{border-radius:12px}
+@media (max-width:860px){.sk.routers{grid-template-columns:1fr}.sk.routers .sk-g:nth-last-child(2){border-bottom:1px solid var(--line)}.sk-row{grid-template-columns:1fr;gap:2px}}
+
+/* jobs I handle through the environment */
+.jobs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.job{background:#fff;border-radius:20px;padding:20px}
+.job b{display:block;font-size:16px;font-weight:600;line-height:1.3}
+.job p{margin:6px 0 0;font-size:14px;color:var(--ink-2);line-height:1.45}
+@media (max-width:860px){.jobs{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.jobs{grid-template-columns:1fr}}
+
+.lang-foot{margin-top:40px;text-align:center;font-size:13px}
+.lang-foot a{color:var(--ink-3);transition:color .2s}
+@media(hover:hover){.lang-foot a:hover{color:var(--ink)}}
+</style>
+</head>
+<body class="t-ai">
+
+<header class="top"><div class="top-in">
+  <a class="back" href="../index-en.html#ai"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>Back</a>
+  <a class="me" href="../index-en.html" aria-label="Dmitrii Alekseenko, home"><img src="../avatar-v3.jpg" alt=""></a>
+  <span class="yr">2026</span>
+</div></header>
+
+<main class="col">
+  <section class="hero rv">
+    <h1>AI Design Environment</h1>
+    <p class="lead"><b>Not prompts, but a working system.</b> I built an environment on Claude Code where every task is run by an agent with its own rulebook: it builds a screen on the design system kit or a layout in Figma, checks its own work, and only then hands over the result.</p>
+    <dl class="facts">
+      <div><dt>Role</dt><dd>Creator of the environment</dd></div>
+      <div><dt>Format</dt><dd>Personal working environment in git</dd></div>
+      <div><dt>Tools</dt><dd>Claude Code, Figma MCP, Storybook</dd></div>
+      <div><dt>Talk</dt><dd>Private Ozon meetup</dd></div>
+    </dl>
+  </section>
+
+  <section class="sec rv">
+    <h2>Talk at the Ozon meetup</h2>
+    <p>I presented the environment at a private Ozon meetup in a talk called “AI as an employee with a playbook”: why an agent needs a rulebook, a role and self-checks rather than a lucky prompt, just like a new employee on the job.</p>
+    <div class="plate">
+      <img class="shot-dark" src="assets/ai-environment/mitap-ozon.jpg" alt="Meetup still: the slide “What the environment is made of” and the speaker in a video call window">
+    </div>
+  </section>
+
+  <section class="sec rv">
+    <div class="plate">
+      <div class="ai">
+        <div class="ai-c w4"><div class="ai-k">Commits to the environment</div><div class="ai-big">328</div><div class="heat" aria-hidden="true"><i class="l0"></i><i class="l1"></i><i class="l0"></i><i class="l2"></i><i class="l3"></i><i class="l1"></i><i class="l1"></i><i class="l1"></i><i class="l2"></i><i class="l1"></i><i class="l1"></i><i class="l0"></i><i class="l0"></i><i class="l2"></i><i class="l1"></i><i class="l1"></i><i class="l1"></i><i class="l1"></i><i class="l1"></i><i class="l0"></i><i class="l0"></i><i class="l1"></i><i class="l0"></i><i class="l0"></i><i class="l1"></i><i class="l1"></i><i class="l2"></i><i class="l3"></i><i class="l1"></i><i class="l1"></i><i class="l2"></i><i class="l1"></i><i class="l1"></i><i class="l0"></i><i class="l0"></i><i class="l2"></i><i class="l0"></i><i class="l1"></i><i class="l2"></i><i class="l0"></i><i class="l0"></i><i class="l0"></i><i class="l1"></i><i class="l2"></i><i class="l1"></i><i class="l1"></i><i class="l0"></i><i class="l0"></i><i class="l1"></i><i class="l2"></i><i class="l2"></i><i class="l2"></i><i class="l2"></i><i class="l1"></i><i class="l0"></i><i class="l2"></i><i class="l1"></i><i class="l3"></i><i class="l2"></i><i class="l3"></i><i class="l1"></i><i class="l2"></i><i class="l2"></i><i class="l2"></i><i class="l1"></i><i class="l1"></i><i class="l1"></i><i class="l0"></i><i class="l0"></i><i class="l0"></i><i class="l0"></i><i class="l0"></i><i class="l0"></i><i class="l0"></i><i class="l0"></i><i class="l1"></i><i class="l0"></i><i class="l2"></i><i class="l3"></i><i class="l1"></i><i class="l1"></i><i class="l1"></i><i class="l1"></i><i class="l0"></i><i class="l3"></i><i class="l2"></i><i class="l1"></i><i class="l0"></i><i class="l0"></i><i class="l0"></i><i class="l0"></i><i class="l0"></i><i class="l0"></i><i class="l1"></i><i class="l1"></i><i class="l2"></i><i class="l3"></i><i class="l4"></i><i class="l4"></i><i class="l4"></i><i class="l3"></i><i class="l3"></i><i class="l1"></i><i class="l2"></i><i class="l1"></i><i class="l3"></i><i class="l1"></i><i class="l1"></i><i class="l1"></i><i class="l0"></i><i class="l0"></i><i class="l0"></i><i class="l1"></i><i class="l1"></i><i class="l1"></i><i class="l2"></i><i class="l1"></i><i class="l0"></i><i class="l0"></i><i class="l1"></i><i class="l2"></i><i class="l1"></i><i class="l1"></i><i class="l2"></i><i class="l0"></i><i class="l0"></i><i class="l3"></i><i class="l2"></i><i class="l2"></i><i class="l2"></i><i class="l3"></i><i class="l3"></i><i class="l3"></i><i class="l2"></i><i class="l2"></i><i class="l2"></i><i class="l2"></i><i class="l2"></i><i class="l0"></i><i class="l0"></i><i class="l4"></i><i class="l2"></i></div><div class="ai-d">100 days with commits, 88 in the last month</div></div>
+        <div class="ai-c"><div class="ai-big">13</div><div class="ai-d">Agents across four areas</div></div>
+        <div class="ai-c"><div class="ai-big">8</div><div class="ai-d">Rulebooks for self-checks</div></div>
+        <div class="ai-c"><div class="ai-big">1042</div><div class="ai-d">Techniques in the reference library</div></div>
+        <div class="ai-c"><div class="ai-big">5</div><div class="ai-d">Stages in the design pipeline</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec rv">
+    <h2>What I use the environment for</h2>
+    <div class="plate">
+      <div class="jobs">
+        <div class="job"><b>Product screen prototypes</b><p>Working HTML on the design system kit, not a picture: clickable and ready for user testing</p></div>
+        <div class="job"><b>Layouts and flows for development</b><p>Figma screens built from the library, flows with arrows, branches and edge cases</p></div>
+        <div class="job"><b>Research</b><p>Interview guides, transcript processing and synthesis: themes, insights and personas based on real data</p></div>
+        <div class="job"><b>Discovery for a task</b><p>Brief, JTBD, story map, OOUX and flows on a FigJam board</p></div>
+        <div class="job"><b>Interface reviews</b><p>Audits for heuristics, realism, spacing and telltale AI patterns before showing the team</p></div>
+        <div class="job"><b>Tracker tickets</b><p>Specs for development that make sense without our source files and prototypes</p></div>
+        <div class="job"><b>Animation</b><p>Transitions, expansions and loading states in prototypes, with timings from the rulebook</p></div>
+        <div class="job"><b>Presentations</b><p>Decks on company templates using the brand illustration library</p></div>
+        <div class="job"><b>Blogging</b><p>Posts for two Telegram channels and covers for internal blog articles</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec rv">
+    <h2>Approach</h2>
+    <p><b>AI without rules produces a screen that is correct but bland.</b> Rules remove the bad but don’t make the screen any stronger, and the typical AI tells show at once: indigo accents, emoji instead of icons, sterile data. So I don’t write prompts for each task: knowledge lives in rulebooks, and the work is done by agents that read them.</p>
+    <div class="plate">
+      <img class="shot-dark" src="assets/ai-environment/slayd-chat-i-sreda.jpg" alt="Talk slide “Chat remembers the conversation. The environment remembers the rules”: how working in a chat differs from working in the environment" loading="lazy">
+    </div>
+    <div class="plate">
+      <img class="shot-dark" src="assets/ai-environment/slayd-iz-oshibok.jpg" alt="Talk slide “The environment grew out of mistakes, not a plan”: commits by month from June to October and what appeared in each" loading="lazy">
+    </div>
+  </section>
+
+  <section class="sec rv">
+    <h2>How a task moves through the environment</h2>
+    <ol class="steps">
+      <li><span class="n">01</span><div><div class="t">The rulebook is read before work starts</div><div class="w">Each area has its own: realism, spacing on a 4/8 grid, anti-slop, 39 rules for AI interfaces, rules for flows in Figma.</div></div></li>
+      <li><span class="n">02</span><div><div class="t">Three approaches, then a choice</div><div class="w">Before building an interface element, the agent presents three working solutions from the reference library, names the trade-off of each and explains its choice.</div></div></li>
+      <li><span class="n">03</span><div><div class="t">Built from real components</div><div class="w">A prototype is built on the design system kit in Storybook and a Figma layout from library instances, not from drawn lookalike blocks.</div></div></li>
+      <li><span class="n">04</span><div><div class="t">Self-check before saying “done”</div><div class="w">Render and screenshot, spacing audit, de-slop, overlap detector in Figma. A successful tool response doesn’t yet mean the intended result was achieved.</div></div></li>
+    </ol>
+    <div class="plate">
+      <img class="shot-dark" src="assets/ai-environment/slayd-svyazi.jpg" alt="Talk slide “How the parts of the environment connect”: CLAUDE.md, agent, skills, memory and result" loading="lazy">
+    </div>
+    <div class="plate">
+      <img class="shot-dark" src="assets/ai-environment/slayd-samoproverka.jpg" alt="Talk slide “Done only after a self-check”: screenshot, overlaps, spacing and anti-slop" loading="lazy">
+    </div>
+  </section>
+
+  <section class="sec rv">
+    <h2>Agents by area</h2>
+    <p>Areas differ only in their rulebook and how they self-check. The route is the same for all: read the rulebook, build, check the work, file the result by the rule.</p>
+    <div class="plate">
+      <img class="shot-dark" src="assets/ai-environment/slayd-agenty-skilly.jpg" alt="Talk slide “Agents do the work, skills set the rules”: the same skills set the pattern at the start and check the agent’s work at the end" loading="lazy">
+    </div>
+  </section>
+
+  <section class="sec rv">
+    <h2>Rulebooks and skills</h2>
+    <p><b>A rulebook is a file of rules; a skill loads it by name.</b> My eight own skills are called directly, while external packs sit behind four group routers so they don’t clutter the choice. A new skill is added only through an onboarding protocol, never dropped into the folder as is.</p>
+    <div class="plate">
+      <img class="shot-dark" src="assets/ai-environment/slayd-oshibka-raz.jpg" alt="Talk slide “A mistake gets fixed once”: the mistake becomes a rulebook rule, and the rule becomes a checking tool" loading="lazy">
+    </div>
+  </section>
+
+  <section class="sec rv">
+    <h2>Design system and kit</h2>
+    <p>One design system, two build paths. A Figma layout is assembled from component instances using the library index; an HTML prototype is built on the kit with real React components, tokens, fonts and icons from the set. Agents don’t recreate component markup by hand: it drifts from the kit with the very first update.</p>
+    <div class="plate">
+      <img class="shot-dark" src="assets/ai-environment/slayd-kit.jpg" alt="Talk slide “Design system kit in Storybook”: the path from the Figma library to a prototype, 78 components, 257 tokens, 945 icons" loading="lazy">
+    </div>
+    <div class="plate">
+      <img class="shot-dark" src="assets/ai-environment/slayd-kit-uskoril.jpg" alt="Talk slide “The kit sped up prototyping”: the catalog table in June on generated HTML and now on the Storybook kit" loading="lazy">
+    </div>
+  </section>
+
+  <section class="sec rv">
+    <h2>Reference library</h2>
+    <p><b>1042 techniques from 930 live screens</b>, each with a recorded boundary: when the technique doesn’t work. On top of the library sits a repertoire of 64 approaches to 11 interface elements: list row, object header, filter panel, empty state and others. The library answers how a detail is done in real products; the repertoire answers which ways there are to build an element at all.</p>
+  </section>
+
+  <section class="sec rv">
+    <h2>Design pipeline</h2>
+    <p>Brief, JTBD, story map, OOUX and user flows. The agent guides you through the stages, asks questions in plain language and draws the artifacts on a FigJam board. The pipeline helped the bank’s teams produce artifacts without design experience; more on this in the Service E case study.</p>
+    <div class="plate pipe">
+      <div class="strip"><span>Brief</span><span class="on">JTBD</span><span>Story map</span><span>OOUX</span><span>User Flow</span></div>
+      <div class="cycle">
+        <div class="node"><div class="who">AI agent</div><b>Asks</b><p>In plain language, no methodology</p></div>
+        <div class="arr">→</div>
+        <div class="node"><div class="who">AI agent</div><b>Writes the text</b><p>Stage artifact in markdown</p></div>
+        <div class="arr">→</div>
+        <div class="node hum"><div class="who">Human</div><b>Edits and says “yes”</b><p>Editing text is cheap</p></div>
+        <div class="arr">→</div>
+        <div class="node"><div class="who">AI agent</div><b>Draws on the board</b><p>FigJam, consistent styling</p></div>
+      </div>
+      <div class="loop"><span>↺ edits until the human agrees</span><span>each stage file becomes the input for the next</span></div>
+    </div>
+    <div class="plate">
+      <img class="shot-dark" src="assets/ai-environment/slayd-pipeline.jpg" alt="Talk slide “Design pipeline”: five stages from brief to User Flow with one approval gate at each" loading="lazy">
+    </div>
+    <div class="plate">
+      <img class="shot-dark" src="assets/ai-environment/slayd-vyhod.jpg" alt="Talk slide “What you get at the end”: the task’s markdown files and the same artifacts on a FigJam board" loading="lazy">
+    </div>
+  </section>
+
+  <section class="sec rv">
+    <h2>Result</h2>
+    <div class="nums">
+      <div class="num"><div class="big">328</div><div class="d">Commits to the environment</div></div>
+      <div class="num"><div class="big">13</div><div class="d">Agents, each with a rulebook and self-check</div></div>
+      <div class="num"><div class="big">64</div><div class="d">Approaches to 11 interface elements in the repertoire</div></div>
+    </div>
+    <div class="plate">
+      <img class="shot-dark" src="assets/ai-environment/slayd-pult.jpg" alt="Talk slide “Environment dashboard”: what’s in progress, plus the stage and next step for each task" loading="lazy">
+    </div>
+    <div class="plate">
+      <img class="shot-dark" src="assets/ai-environment/slayd-zdorovie.jpg" alt="Talk slide “The environment looks after itself”: environment growth and health checks" loading="lazy">
+    </div>
+  </section>
+
+  <a class="next rv" href="data-platform-en.html">
+    <div class="txt">
+      <div class="k">Next case</div>
+      <div class="t">Data Platform</div>
+      <div class="d">Data catalog, lineage and data quality</div>
+      <div class="go">View case study <i>→</i></div>
+    </div>
+    <div class="pv"><img src="../covers/data-platform.png" alt="" loading="lazy"></div>
+  </a>
+  <p class="lang-foot"><a href="ai-environment.html" hreflang="ru" lang="ru">Русская версия</a></p>
+</main>
+
+<dialog class="lb" id="lb" tabindex="-1" aria-label="Screen viewer">
+  <img alt="">
+  <button class="lb-btn lb-prev" type="button" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button>
+  <button class="lb-btn lb-next" type="button" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+  <button class="lb-btn lb-x" type="button" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+  <span class="lb-n"></span>
+</dialog>
+
+<script>
+const rv=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); rv.unobserve(e.target);} }),{rootMargin:'0px 0px -8% 0px'});
+document.querySelectorAll('.rv').forEach(el=>rv.observe(el));
+// viewer: two groups (screens with the cover, artifacts), paging stays within a group
+const lb=document.getElementById('lb'), lbImg=lb.querySelector('img'), lbN=lb.querySelector('.lb-n');
+const groups=[[...document.querySelectorAll('.cover,.plate img')],[...document.querySelectorAll('.arts img')]];
+let cur=[],i=0;
+const show=()=>{ const img=cur[i]; lbImg.src=img.src; lbImg.alt=img.alt; lbN.textContent=(i+1)+' / '+cur.length; };
+const go=d=>{ i=(i+d+cur.length)%cur.length; show(); };
+const open=(g,k)=>{ cur=g; i=k; lb.classList.toggle('one',g.length<2); show(); lb.showModal(); lb.focus(); };
+groups.forEach(g=>g.forEach((img,k)=>(img.closest('button')||img).addEventListener('click',()=>open(g,k))));
+lb.querySelector('.lb-prev').addEventListener('click',()=>go(-1));
+lb.querySelector('.lb-next').addEventListener('click',()=>go(1));
+lb.querySelector('.lb-x').addEventListener('click',()=>lb.close());
+lbImg.addEventListener('click',()=>go(1));
+// clicking outside the image closes it
+lb.addEventListener('click',e=>{ if(e.target===lb) lb.close(); });
+lb.addEventListener('keydown',e=>{ if(e.key==='ArrowLeft'){e.preventDefault();go(-1);} if(e.key==='ArrowRight'){e.preventDefault();go(1);} });
+</script>
+<script src="../assets/smooth-scroll.js" defer></script>
+</body>
+</html>

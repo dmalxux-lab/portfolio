@@ -1,0 +1,511 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="alternate" hreflang="ru" href="index.html">
+<title>Dmitrii Alekseenko | Product Designer</title>
+<link rel="icon" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400..700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{-webkit-tap-highlight-color:rgba(0,0,0,0)}
+:focus:not(:focus-visible){outline:none}
+:root{
+  --ink:#0f1015; --ink-2:#4a4c57; --ink-3:#8a8c97;
+  --paper:#fff; --line:#eaebf1; --soft:#f3f4f7;
+  --accent:#5b64c9;
+  --side:360px; --gap:24px;
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;scroll-padding-top:24px}
+body{font-family:Manrope,system-ui,sans-serif;color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased;font-size:16px;line-height:1.45}
+a{color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent}
+img{display:block;max-width:100%}
+
+.layout{display:grid;grid-template-columns:var(--side) 1fr;min-height:100vh}
+
+/* ---------- сайдбар ---------- */
+.side{position:sticky;top:0;height:100vh;overflow-y:auto;padding:40px 24px 32px;display:flex;flex-direction:column;gap:32px;border-right:1px solid var(--line);scrollbar-width:none}
+.side::-webkit-scrollbar{display:none}
+.me{display:flex;flex-direction:column;align-items:center;gap:16px;padding:0 8px;text-align:center}
+.me-top{display:flex;flex-direction:column;align-items:center;gap:16px}
+.ava{width:96px;height:96px;flex:none;object-fit:cover;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M100.0 50.0L100.0 67.2L99.8 72.7L99.6 76.7L99.2 79.9L98.8 82.6L98.2 84.9L97.6 86.9L96.8 88.8L95.9 90.4L94.9 91.9L93.8 93.2L92.6 94.4L91.2 95.5L89.6 96.4L87.9 97.2L86.0 97.9L83.8 98.5L81.3 99.0L78.3 99.4L74.8 99.7L70.3 99.9L63.1 100.0L36.9 100.0L29.7 99.9L25.2 99.7L21.7 99.4L18.7 99.0L16.2 98.5L14.0 97.9L12.1 97.2L10.4 96.4L8.8 95.5L7.4 94.4L6.2 93.2L5.1 91.9L4.1 90.4L3.2 88.8L2.4 86.9L1.8 84.9L1.2 82.6L0.8 79.9L0.4 76.7L0.2 72.7L0.0 67.2L0.0 50.0L0.0 32.8L0.2 27.3L0.4 23.3L0.8 20.1L1.2 17.4L1.8 15.1L2.4 13.1L3.2 11.2L4.1 9.6L5.1 8.1L6.2 6.8L7.4 5.6L8.8 4.5L10.4 3.6L12.1 2.8L14.0 2.1L16.2 1.5L18.7 1.0L21.7 0.6L25.2 0.3L29.7 0.1L36.9 0.0L63.1 0.0L70.3 0.1L74.8 0.3L78.3 0.6L81.3 1.0L83.8 1.5L86.0 2.1L87.9 2.8L89.6 3.6L91.2 4.5L92.6 5.6L93.8 6.8L94.9 8.1L95.9 9.6L96.8 11.2L97.6 13.1L98.2 15.1L98.8 17.4L99.2 20.1L99.6 23.3L99.8 27.3L100.0 32.8Z'/%3E%3C/svg%3E") center/100% 100% no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M100.0 50.0L100.0 67.2L99.8 72.7L99.6 76.7L99.2 79.9L98.8 82.6L98.2 84.9L97.6 86.9L96.8 88.8L95.9 90.4L94.9 91.9L93.8 93.2L92.6 94.4L91.2 95.5L89.6 96.4L87.9 97.2L86.0 97.9L83.8 98.5L81.3 99.0L78.3 99.4L74.8 99.7L70.3 99.9L63.1 100.0L36.9 100.0L29.7 99.9L25.2 99.7L21.7 99.4L18.7 99.0L16.2 98.5L14.0 97.9L12.1 97.2L10.4 96.4L8.8 95.5L7.4 94.4L6.2 93.2L5.1 91.9L4.1 90.4L3.2 88.8L2.4 86.9L1.8 84.9L1.2 82.6L0.8 79.9L0.4 76.7L0.2 72.7L0.0 67.2L0.0 50.0L0.0 32.8L0.2 27.3L0.4 23.3L0.8 20.1L1.2 17.4L1.8 15.1L2.4 13.1L3.2 11.2L4.1 9.6L5.1 8.1L6.2 6.8L7.4 5.6L8.8 4.5L10.4 3.6L12.1 2.8L14.0 2.1L16.2 1.5L18.7 1.0L21.7 0.6L25.2 0.3L29.7 0.1L36.9 0.0L63.1 0.0L70.3 0.1L74.8 0.3L78.3 0.6L81.3 1.0L83.8 1.5L86.0 2.1L87.9 2.8L89.6 3.6L91.2 4.5L92.6 5.6L93.8 6.8L94.9 8.1L95.9 9.6L96.8 11.2L97.6 13.1L98.2 15.1L98.8 17.4L99.2 20.1L99.6 23.3L99.8 27.3L100.0 32.8Z'/%3E%3C/svg%3E") center/100% 100% no-repeat}
+.me-name{font-size:17px;font-weight:600;letter-spacing:-.01em;line-height:1.25}
+.me-role{font-size:14px;color:var(--ink-3)}
+.me-text{font-size:15px;color:var(--ink-2);line-height:1.5}
+.me-text b{font-weight:600;color:var(--ink)}
+.me-text .tl{display:inline-block;margin-left:6px;vertical-align:-3px;line-height:0}
+.me-text .tool{width:18px;height:18px}
+.me-links{display:flex;gap:8px;align-items:center;justify-content:center}
+.ic{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--line);color:var(--ink-2);transition:background .2s,color .2s}
+@media(hover:hover){.ic:hover{background:var(--ink);color:#fff;border-color:var(--ink)}}
+.ic svg{width:16px;height:16px}
+
+.nav{display:flex;flex-direction:column;gap:4px}
+.nav a{display:grid;grid-template-columns:40px 1fr auto;gap:4px 12px;align-items:start;padding:12px;border-radius:16px;transition:background .25s var(--ease)}
+@media(hover:hover){.nav a:hover{background:#f5f6f9}}
+.nav a.on{background:var(--tint)}
+.nav .logo{grid-row:span 2;width:40px;height:40px;border-radius:10px;overflow:hidden;display:grid;place-items:center;background:var(--tint-2);color:var(--ink-2)}
+.nav .logo img{width:100%;height:100%}
+.nav .logo svg{width:20px;height:20px}
+.nav .t{font-size:15px;font-weight:600;letter-spacing:-.01em;line-height:1.3}
+.nav .y{font-size:13px;color:var(--ink-3);font-variant-numeric:tabular-nums;line-height:1.5}
+.nav .d{grid-column:2 / 4;font-size:13px;color:var(--ink-2);line-height:1.4}
+/* каналы блога отдельными плашками в подвале сайдбара */
+.sblog{margin-top:auto;display:flex;flex-direction:column;gap:8px}
+.sblog-k{padding:0 8px 4px;font-size:13px;color:var(--ink-3)}
+.sb{display:flex;align-items:center;gap:12px;padding:10px 14px 10px 10px;border-radius:16px;background:#f5f6f9;transition:background .2s}
+@media(hover:hover){.sb:hover{background:#eceef3}}
+.sb img{width:40px;height:40px;border-radius:50%;object-fit:cover;flex:none}
+.sb span{display:flex;flex-direction:column;min-width:0}
+.sb b{font-size:15px;font-weight:600;letter-spacing:-.01em}
+.sb small{font-size:13px;color:var(--ink-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sb svg{margin-left:auto;width:16px;height:16px;color:var(--ink-3);flex:none;transition:transform .2s var(--ease)}
+@media(hover:hover){.sb:hover svg{transform:translate(2px,-2px);color:var(--ink)}}
+.side-foot{padding:0 8px;font-size:13px;color:var(--ink-3)}
+
+/* ---------- лента ---------- */
+.feed{padding:24px 24px 24px 24px;display:flex;flex-direction:column;gap:var(--gap);min-width:0}
+.panel{background:var(--tint);border-radius:32px;padding:16px}
+.p-head{display:flex;align-items:flex-start;gap:16px;padding:8px 8px 24px}
+.p-title{font-size:40px;font-weight:600;letter-spacing:-.035em;line-height:1}
+.panel{position:relative}
+.p-meta{margin-top:8px;font-size:14px;color:var(--ink-2)}
+.p-link{margin-left:auto;display:inline-flex;align-items:center;gap:8px;height:48px;padding:0 24px;border-radius:999px;background:rgba(255,255,255,.7);font-size:16px;font-weight:600;transition:background .2s}
+@media(hover:hover){.p-link:hover{background:#fff}}
+.p-link svg{width:16px;height:16px}
+
+.grid{display:flex;align-items:flex-start;gap:16px;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:none;margin:0 -16px;padding:0 16px;cursor:grab}
+.grid::-webkit-scrollbar{display:none}
+.grid.drag{cursor:grabbing}
+.grid.drag .card{pointer-events:none}
+.card{flex:0 0 min(72%,880px);background:#fff;border-radius:16px;overflow:hidden;display:block;box-shadow:0 0 0 1px rgba(15,16,21,.06)}
+.grid.three .card{flex:1 1 0;min-width:300px}
+.shot{line-height:0}
+.shot img{width:100%;height:auto}
+
+/* ---------- виньетки продуктов: фрагменты интерфейса вместо полных скринов ---------- */
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.vcard{min-width:0;display:flex;flex-direction:column;background:var(--tint-2);border-radius:20px;overflow:hidden}
+/* плашка тянется во всю ширину, а сцена с фрагментами постоянного размера стоит по центру:
+   на широком мониторе фрагменты не раздуваются, как в портфолио-референсе на Framer */
+.stage{position:relative;aspect-ratio:4 / 3;max-height:440px;width:100%;overflow:hidden;display:grid;place-items:center}
+.stage-in{position:relative;width:min(88%,540px);aspect-ratio:4 / 3;container-type:inline-size;
+  /* низ не режем clip-path: его сглаженный край на дробном пикселе пропускает
+     светлую линию от белого фрагмента. Хвост закрывает ::after, обрезает .stage */
+}
+/* один масштаб на все фрагменты: ширина = исходные пиксели кропа x коэффициент, кегль везде одинаковый */
+.frag{position:absolute;max-width:none;height:auto;width:calc(var(--w) * .0816cqw * var(--k,1));border-radius:12px;background:#fff;
+  /* без теней: фрагменты лежат на плашке плоско */
+  transition:transform .4s var(--ease)}
+.frag.front{z-index:2}
+/* связка узлов на белой подложке, как внутри блока */
+.frag.group{display:flex;gap:calc(16 * .0816cqw);padding:calc(24 * .0816cqw);width:auto}
+.frag.group.stack{flex-direction:column;gap:0}
+.frag.group.row{align-items:center}
+.frag.group.col{flex-direction:column}
+.frag.group img{width:calc(var(--w) * .0816cqw);max-width:none;height:auto}
+/* узлы со своей формой (ноды, виджеты, плашка звонка): без подложки, тени и скругления фрагмента */
+.frag.bare{background:none;border-radius:0}
+/* при наслоении верхняя плашка отбрасывает тень на нижнюю, иначе белое сливается с белым */
+.frag.lift{filter:drop-shadow(0 6px 18px rgba(15,16,21,.14))}
+.edges{position:absolute;inset:0;width:100%;height:100%;z-index:1;fill:none;stroke:#9aa3c7;stroke-width:.3}
+/* снизу растворение для высоких узлов, уходящих за край */
+.stage-in::before{content:"";position:absolute;inset:auto 0 0 0;height:14%;background:linear-gradient(to bottom,transparent,var(--tint-2));z-index:3;pointer-events:none}
+/* всё, что ниже сцены, закрыто сплошным цветом плашки; заходит на 1px внутрь, чтобы не было шва */
+.stage-in::after{content:"";position:absolute;left:-80px;right:-80px;top:calc(100% - 1px);height:600px;background:var(--tint-2);z-index:3;pointer-events:none}
+/* бокового растворения нет: компонент виден целиком по ширине, за край уходит только низ */
+/* компонент помещается целиком и по высоте: нижнее растворение не нужно */
+.stage-in.whole::before,.stage-in.whole::after{display:none}
+@media(hover:hover){.vcard:hover .frag.front{transform:translateY(-4px)}}
+.v-cap{padding:24px 24px 28px}
+.v-cap b{display:block;font-size:22px;font-weight:600;letter-spacing:-.02em;line-height:1.2}
+.v-cap span{display:block;margin-top:4px;font-size:16px;color:var(--ink-2)}
+
+
+/* опыт */
+.exp{display:flex;flex-direction:column;background:#fff;border-radius:20px;overflow:hidden}
+.job{display:grid;grid-template-columns:44px 1fr auto;gap:16px;align-items:start;padding:24px;border-bottom:1px solid var(--line)}
+.job .co{width:44px;height:44px;border-radius:12px}
+.job:last-child{border-bottom:0}
+.job .when{text-align:right;line-height:1.7;font-size:14px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.job .role{font-size:17px;font-weight:600;letter-spacing:-.01em}
+.job .org{font-size:15px;color:var(--ink-2)}
+.job p{margin-top:8px;font-size:15px;color:var(--ink-2);max-width:62ch}
+
+.contact{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:40px 24px 32px}
+.contact h2{font-size:40px;font-weight:600;letter-spacing:-.035em;line-height:1.05;max-width:16ch}
+.btn{display:inline-flex;align-items:center;height:48px;padding:0 24px;border-radius:999px;background:var(--ink);color:#fff;font-weight:600;font-size:15px;flex:none;transition:background .2s}
+@media(hover:hover){.btn:hover{background:var(--accent)}}
+
+/* тинты продуктов */
+.t-dp{--tint:#eceffd;--tint-2:#d9dffb}
+.t-se{--tint:#f1edfd;--tint-2:#e2dafb}
+.t-crm{--tint:#ebf2fb;--tint-2:#d6e4f6}
+.t-card{--tint:#ebf4ef;--tint-2:#d5e8de}
+.t-col{--tint:#fcf1e9;--tint-2:#f8e1d1}
+.t-web{--tint:#f2f2f4;--tint-2:#e4e4e8}
+.t-exp{--tint:#f5f6f9;--tint-2:#e8e9ef}
+
+.t-ai{--tint:#f1f2f6;--tint-2:#e4e6ee}
+
+
+/* блок «AI Design Environment»: две карточки рядом без ленты, в каждой два компонента среды внахлёст, подпись снизу.
+   Размеры в cqw, чтобы карточка масштабировалась целиком */
+.duo{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+/* карточка тянется во всю ширину, сцена с фрагментами не шире 540 и стоит по центру,
+   подпись как у виньеток продуктов: на широком мониторе ничего не раздувается */
+.dcard{position:relative;border-radius:16px;background:var(--tint-2);overflow:hidden;display:flex;flex-direction:column}
+.dstage{position:relative;width:min(100%,540px);aspect-ratio:1 / .86;margin:0 auto;container-type:inline-size}
+/* схема связей агентов и сводов из пульта среды, PNG с прозрачным фоном */
+.dlinks{position:absolute;left:4%;top:50%;width:92%;height:auto;transform:translateY(-50%)}
+/* график роста среды из пульта, целиком по центру сцены */
+.dgrowth{position:absolute;left:6%;top:50%;width:88%;height:auto;transform:translateY(-50%)}
+.cp{position:absolute;background:#fff;border-radius:3.6cqw;box-shadow:0 2cqw 6cqw rgba(15,16,21,.08);font-size:2.7cqw;line-height:1.35;color:var(--ink)}
+.cp code{font:500 2.6cqw/1.3 ui-monospace,SFMono-Regular,Menlo,monospace}
+.cp small{display:block;font-size:2.3cqw;color:var(--ink-3)}
+/* список агентов: поиск сверху, строки с квадратной меткой */
+.cp.lst{left:7cqw;top:6cqw;width:48cqw;padding:3cqw}
+.lst .srch{display:flex;align-items:center;gap:1.6cqw;height:7cqw;padding:0 2.4cqw;border-radius:99px;background:var(--soft);color:var(--ink-3);font-size:2.4cqw;margin-bottom:1.6cqw}
+.lst .srch svg{width:2.8cqw;height:2.8cqw;flex:none}
+.lst .ag{display:flex;align-items:center;gap:2cqw;padding:1.3cqw 0}
+.lst .ag i{flex:none;width:6.4cqw;height:6.4cqw;border-radius:1.6cqw;background:var(--ink);color:#fff;display:grid;place-items:center;font:600 2.2cqw ui-monospace,SFMono-Regular,Menlo,monospace}
+/* окно поверх списка */
+.cp.dlg{left:35cqw;top:19cqw;width:56cqw;padding:3.6cqw}
+.dlg .top{display:flex;align-items:center;justify-content:space-between;margin-bottom:2.6cqw}
+.dlg .tag{display:inline-flex;align-items:center;gap:1cqw;padding:.8cqw 1.8cqw;border-radius:99px;background:var(--soft);font-size:2.2cqw;font-weight:600}
+.dlg .x{width:3cqw;height:3cqw;color:var(--ink-3)}
+.dlg h4{font-size:4.2cqw;font-weight:600;letter-spacing:-.02em;line-height:1.15}
+.dlg p{margin-top:1.4cqw;font-size:2.5cqw;color:var(--ink-2)}
+.dlg .who{display:flex;align-items:center;gap:2cqw;margin-top:2.8cqw;padding:2cqw;border-radius:2.4cqw;background:var(--soft)}
+.dlg .who i{flex:none;width:6.4cqw;height:6.4cqw;border-radius:1.6cqw;background:var(--ink);color:#fff;display:grid;place-items:center;font:600 2.2cqw ui-monospace,SFMono-Regular,Menlo,monospace}
+.dlg .go{display:grid;place-items:center;height:7.6cqw;margin-top:2.8cqw;border-radius:2cqw;background:var(--ink);color:#fff;font-size:2.7cqw;font-weight:600}
+/* отчёт аудита и уведомление сторожа поверх */
+.cp.rep{left:7cqw;top:7cqw;width:60cqw;padding:3.4cqw 3.6cqw;rotate:-3deg}
+.rep .h{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.6cqw}
+.rep .li{display:flex;justify-content:space-between;gap:2cqw;padding:1.5cqw 0;border-top:1px solid var(--line)}
+.rep .li em{font-style:normal;color:var(--ink-3);font-variant-numeric:tabular-nums;white-space:nowrap}
+.pill{display:inline-flex;align-items:center;gap:1cqw;padding:.7cqw 1.7cqw;border-radius:99px;font-size:2.2cqw;font-weight:600;background:var(--soft);color:var(--ink-2)}
+.pill.bad{background:#fde8e6;color:#b42318}
+.pill.bad::before{content:"";width:1.2cqw;height:1.2cqw;border-radius:50%;background:currentColor}
+.cp.ntf{left:33cqw;top:38cqw;width:58cqw;padding:3.6cqw}
+.ntf .h{display:flex;gap:2.4cqw;align-items:flex-start}
+.ntf .h i{flex:none;width:6.4cqw;height:6.4cqw;border-radius:1.6cqw;background:#fde8e6;color:#b42318;display:grid;place-items:center;font-style:normal;font-weight:700;font-size:3cqw}
+.ntf .h b{display:block;font-size:3.2cqw;font-weight:600}
+.ntf .sw{margin-top:2.4cqw;display:flex;flex-direction:column;gap:1cqw;font-size:2.4cqw;color:var(--ink-2)}
+.ntf .sw code{font-size:2.3cqw;color:var(--ink)}
+.ntf .go{display:grid;place-items:center;height:7cqw;margin-top:2.8cqw;border-radius:2cqw;background:var(--ink);color:#fff;font-size:2.6cqw;font-weight:600}
+
+
+/* инструменты вокруг аватарки, как подарки в профиле Telegram */
+.ava-wrap{-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none;position:relative;width:96px;height:96px;margin:8px 0}
+.gift{position:absolute;left:50%;top:50%;width:var(--s);height:var(--s);margin:calc(var(--s) / -2) 0 0 calc(var(--s) / -2);transform:translate(var(--x),var(--y));animation:gfloat 4s ease-in-out var(--d) infinite;filter:drop-shadow(0 4px 8px rgba(15,16,21,.12))}
+.gift svg{width:100%;height:100%;display:block}
+@keyframes gfloat{0%,100%{transform:translate(var(--x),var(--y))}50%{transform:translate(var(--x),calc(var(--y) - 6px))}}
+@media (prefers-reduced-motion:reduce){.gift{animation:none}}
+
+/* аватарку нажали и держат: иконки разъезжаются и остаются, отпустили — возвращаются.
+   Отдельные свойства translate/rotate/scale складываются с анимацией парения */
+.ava{cursor:pointer;transition:transform .3s var(--ease);touch-action:none;-webkit-user-select:none;user-select:none;-webkit-user-drag:none;-webkit-touch-callout:none}
+.gift{transition:translate .45s cubic-bezier(.2,.9,.3,1.25),rotate .45s var(--ease),scale .45s var(--ease)}
+.ava-wrap *{-webkit-tap-highlight-color:transparent;outline:none}
+.ava-wrap.spread .ava{transform:scale(.92)}
+.ava-wrap.spread .gift{translate:calc(var(--x) * .45) calc(var(--y) * .2 - 8px);rotate:15deg;scale:1.15}
+@media (prefers-reduced-motion:reduce){.gift{transition:none}}
+
+/* появление */
+.panel{opacity:0;transform:translateY(16px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+.panel.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.frag{transition:none}html{scroll-behavior:auto}.panel{opacity:1;transform:none;transition:none}}
+
+/* ---------- адаптив ---------- */
+@media (max-width:1100px){:root{--side:300px}.p-title{font-size:32px}
+  /* опыт: дата встаёт под компанию, порядок как на десктопе — должность, компания, срок, текст */
+  .job{grid-template-columns:44px 1fr;gap:4px 16px}.job>div{display:contents}
+  .job .co{grid-row:1 / 5}.job .role{grid-column:2;grid-row:1}.job .org{grid-column:2;grid-row:2}
+  .job .when{grid-column:2;grid-row:3;text-align:left;line-height:1.45}.job p{grid-column:2;grid-row:4}}
+@media (max-width:860px){
+  .layout{grid-template-columns:1fr;min-height:0}
+  /* сайдбар разбирается на части: о себе и список проектов сверху, каналы и подпись после ленты */
+  .side{display:contents}
+  .me{order:0;padding:32px 24px 0}
+  .nav{order:1;padding:24px 4px 0}
+  .feed{order:2;padding:16px}
+  .sblog{order:3;margin-top:0;padding:8px 16px 0}
+  .side-foot{order:4;padding:24px 24px 32px}
+  .panel{border-radius:24px;padding:12px}
+  /* кнопка «Кейс» всегда справа и компактная, переносится заголовок */
+  .p-head{padding:4px 4px 16px;gap:12px}
+  .p-head>div{flex:1;min-width:0}
+  .p-title{font-size:28px;line-height:1.1}
+  .p-link{flex:none;height:40px;padding:0 16px;font-size:15px}
+  /* виньетки: высота сцены постоянная, фрагменты в десктопном масштабе, края обрезаются */
+  /* виньетки: сцена по ширине карточки с полем, фрагменты уменьшаются целиком и стоят по центру */
+  .stage-in{width:94%}
+  .grid{gap:12px;margin:0 -12px;padding:0 12px}
+  .card,.grid.three .card{flex:0 0 86%;min-width:0}
+  .duo{grid-template-columns:1fr}
+  .job{padding:20px}
+  .contact{flex-direction:column;align-items:flex-start;padding:32px 8px 24px}
+  .contact h2{font-size:30px}
+}
+
+.side-foot a{transition:color .2s}
+@media(hover:hover){.side-foot a:hover{color:var(--ink)}}
+/* язык: кнопка с иконкой перевода, по клику другая версия, при наведении темнеет */
+.lang{position:relative;display:grid;place-items:center;width:32px;height:32px;border-radius:999px;background:var(--soft);color:var(--ink-2);transition:background .2s,color .2s}
+.lang .txt{font-size:11px;font-weight:700;letter-spacing:.02em}
+@media(hover:hover){.lang:hover{background:#e9eaef;color:var(--ink)}}
+.me{position:relative}
+.me>.lang{position:absolute;top:-16px;left:-8px}
+@media (max-width:860px){.me>.lang{top:24px;left:24px}}
+</style>
+</head>
+<body>
+<div class="layout">
+
+<aside class="side">
+  <div class="me">
+    <a class="lang" href="index.html" hreflang="ru" lang="ru" aria-label="Русская версия"><span class="txt">RU</span></a>
+    <div class="me-top">
+      <div class="ava-wrap" aria-label="I work with Claude Code, Antigravity IDE, Storybook and Handy">
+        <img class="ava" src="avatar-v3.jpg" alt="Dmitrii Alekseenko"><span class="gift" title="Handy" aria-label="Handy" style="--x:-48px;--y:40px;--d:1.9s;--s:28px"><img src="assets/logos/tools/handy.png" alt="" style="width:100%;height:100%;display:block"></span>
+        
+        <span class="gift" title="Claude Code" aria-label="Claude Code" style="--x:-66px;--y:-19px;--d:0s;--s:24px"><svg  viewBox="0 0 24 24" fill="#D97757" aria-hidden="true"><path d="m4.7144 15.9555 4.7174-2.6471.079-.2307-.079-.1275h-.2307l-.7893-.0486-2.6956-.0729-2.3375-.0971-2.2646-.1214-.5707-.1215-.5343-.7042.0546-.3522.4797-.3218.686.0608 1.5179.1032 2.2767.1578 1.6514.0972 2.4468.255h.3886l.0546-.1579-.1336-.0971-.1032-.0972L6.973 9.8356l-2.55-1.6879-1.3356-.9714-.7225-.4918-.3643-.4614-.1578-1.0078.6557-.7225.8803.0607.2246.0607.8925.686 1.9064 1.4754 2.4893 1.8336.3643.3035.1457-.1032.0182-.0728-.164-.2733-1.3539-2.4467-1.445-2.4893-.6435-1.032-.17-.6194c-.0607-.255-.1032-.4674-.1032-.7285L6.287.1335 6.6997 0l.9957.1336.419.3642.6192 1.4147 1.0018 2.2282 1.5543 3.0296.4553.8985.2429.8318.091.255h.1579v-.1457l.1275-1.706.2368-2.0947.2307-2.6957.0789-.7589.3764-.9107.7468-.4918.5828.2793.4797.686-.0668.4433-.2853 1.8517-.5586 2.9021-.3643 1.9429h.2125l.2429-.2429.9835-1.3053 1.6514-2.0643.7286-.8196.85-.9046.5464-.4311h1.0321l.759 1.1293-.34 1.1657-1.0625 1.3478-.8804 1.1414-1.2628 1.7-.7893 1.36.0729.1093.1882-.0183 2.8535-.607 1.5421-.2794 1.8396-.3157.8318.3886.091.3946-.3278.8075-1.967.4857-2.3072.4614-3.4364.8136-.0425.0304.0486.0607 1.5482.1457.6618.0364h1.621l3.0175.2247.7892.522.4736.6376-.079.4857-1.2142.6193-1.6393-.3886-3.825-.9107-1.3113-.3279h-.1822v.1093l1.0929 1.0686 2.0035 1.8092 2.5075 2.3314.1275.5768-.3218.4554-.34-.0486-2.2039-1.6575-.85-.7468-1.9246-1.621h-.1275v.17l.4432.6496 2.3436 3.5214.1214 1.0807-.17.3521-.6071.2125-.6679-.1214-1.3721-1.9246L14.38 17.959l-1.1414-1.9428-.1397.079-.674 7.2552-.3156.3703-.7286.2793-.6071-.4614-.3218-.7468.3218-1.4753.3886-1.9246.3157-1.53.2853-1.9004.17-.6314-.0121-.0425-.1397.0182-1.4328 1.9672-2.1796 2.9446-1.7243 1.8456-.4128.164-.7164-.3704.0667-.6618.4008-.5889 2.386-3.0357 1.4389-1.882.929-1.0868-.0062-.1579h-.0546l-6.3385 4.1164-1.1293.1457-.4857-.4554.0608-.7467.2307-.2429 1.9064-1.3114Z"/></svg></span><span class="gift" title="Antigravity IDE" aria-label="Antigravity IDE" style="--x:55px;--y:-46px;--d:1.3s;--s:24px"><img src="assets/logos/tools/antigravity.svg" alt="" style="width:100%;height:100%;display:block;object-fit:contain"></span><span class="gift" title="Storybook" aria-label="Storybook" style="--x:43px;--y:41px;--d:2.6s;--s:24px"><svg  viewBox="0 0 24 24" fill="#FF4785" aria-hidden="true"><path d="M16.71.243l-.12 2.71a.18.18 0 00.29.15l1.06-.8.9.7a.18.18 0 00.28-.14l-.1-2.76 1.33-.1a1.2 1.2 0 011.279 1.2v21.596a1.2 1.2 0 01-1.26 1.2l-16.096-.72a1.2 1.2 0 01-1.15-1.16l-.75-19.797a1.2 1.2 0 011.13-1.27L16.7.222zM13.64 9.3c0 .47 3.16.24 3.59-.08 0-3.2-1.72-4.89-4.859-4.89-3.15 0-4.899 1.72-4.899 4.29 0 4.45 5.999 4.53 5.999 6.959 0 .7-.32 1.1-1.05 1.1-.96 0-1.35-.49-1.3-2.16 0-.36-3.649-.48-3.769 0-.27 4.03 2.23 5.2 5.099 5.2 2.79 0 4.969-1.49 4.969-4.18 0-4.77-6.099-4.64-6.099-6.999 0-.97.72-1.1 1.13-1.1.45 0 1.25.07 1.19 1.87z"/></svg></span>
+      </div>
+      <div>
+        <div class="me-name">Dmitrii Alekseenko</div>
+        <div class="me-role">Product Designer</div>
+      </div>
+    </div>
+    <p class="me-text">I set up design processes where there were none. Research, design, metrics</p>
+    <div class="me-links">
+      <a class="ic" href="mailto:dmalxux@gmail.com" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></a>
+      <a class="ic" href="https://t.me/dmalxux" aria-label="Telegram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 10l-4 4 6 6 4-16-18 7 4 2 2 6 3-4"/></svg></a>
+          <a class="ic" href="https://www.behance.net/dmalxux" aria-label="Behance"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.969 16.927a2.561 2.561 0 0 0 1.901.677 2.501 2.501 0 0 0 1.531-.475c.362-.235.636-.584.779-.99h2.585a5.091 5.091 0 0 1-1.9 2.896 5.292 5.292 0 0 1-3.091.88 5.839 5.839 0 0 1-2.284-.433 4.871 4.871 0 0 1-1.723-1.211 5.657 5.657 0 0 1-1.08-1.874 7.057 7.057 0 0 1-.383-2.393c-.005-.8.129-1.595.396-2.349a5.313 5.313 0 0 1 5.088-3.604 4.87 4.87 0 0 1 2.376.563c.661.362 1.231.87 1.668 1.485a6.2 6.2 0 0 1 .943 2.133c.194.821.263 1.666.205 2.508h-7.699c-.063.79.184 1.574.688 2.187ZM6.947 4.084a8.065 8.065 0 0 1 1.928.198 4.29 4.29 0 0 1 1.49.638c.418.303.748.711.958 1.182.241.579.357 1.203.341 1.83a3.506 3.506 0 0 1-.506 1.961 3.726 3.726 0 0 1-1.503 1.287 3.588 3.588 0 0 1 2.027 1.437c.464.747.697 1.615.67 2.494a4.593 4.593 0 0 1-.423 2.032 3.945 3.945 0 0 1-1.163 1.413 5.114 5.114 0 0 1-1.683.807 7.135 7.135 0 0 1-1.928.259H0V4.084h6.947Zm-.235 12.9c.308.004.616-.029.916-.099.268-.06.523-.169.751-.322.218-.146.391-.347.503-.584.128-.289.19-.603.182-.919a1.85 1.85 0 0 0-.629-1.578 2.534 2.534 0 0 0-1.643-.475H3.581v3.977h3.131Zm13.067-6.52a2.256 2.256 0 0 0-1.752-.644 2.611 2.611 0 0 0-1.27.272 2.49 2.49 0 0 0-.809.66 2.358 2.358 0 0 0-.426.85 3.94 3.94 0 0 0-.142.787h4.779a3.342 3.342 0 0 0-.38-1.925ZM6.53 9.865a2.162 2.162 0 0 0 1.3-.38 1.395 1.395 0 0 0 .504-1.234 1.587 1.587 0 0 0-.168-.776 1.214 1.214 0 0 0-.453-.47 1.817 1.817 0 0 0-.645-.233 4.144 4.144 0 0 0-.758-.064H3.581v3.157H6.53ZM15.31 5.25h5.986v1.459H15.31V5.25Z"/></svg></a>
+          <a class="ic" href="https://ru.pinterest.com/dmalxux/" aria-label="Pinterest"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.401.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.354-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.607 0 11.985-5.365 11.985-11.987C23.97 5.39 18.592.026 11.985.026L12.017 0z"/></svg></a>
+    </div>
+  </div>
+
+  <nav class="nav" aria-label="Projects">
+    <a href="#data-platform" class="t-dp"><span class="logo"><img src="assets/logos/products/data-platform.png" alt=""></span><span class="t">Data Platform</span><span class="y">2026</span><span class="d">Data catalog, lineage and data quality</span></a>
+    <a href="#service-e" class="t-se"><span class="logo"><img src="assets/logos/products/service-e.png" alt=""></span><span class="t">Service E</span><span class="y">2026</span><span class="d">Document signing and encryption</span></a>
+    <a href="#crm" class="t-crm"><span class="logo"><img src="assets/logos/products/crm.png" alt=""></span><span class="t">CRM Platform</span><span class="y">2023</span><span class="d">A client profile opened hundreds of times a shift</span></a>
+    <a href="#card" class="t-card"><span class="logo"><img src="assets/logos/products/card.svg" alt=""></span><span class="t">Card Platform</span><span class="y">2022</span><span class="d">All client cards in one support window</span></a>
+    <a href="#collection" class="t-col"><span class="logo"><img src="assets/logos/products/collection.svg" alt=""></span><span class="t">Collection Service</span><span class="y">2022</span><span class="d">Debt collection without extra steps</span></a>
+    <a href="#ai" class="t-ai"><span class="logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></svg></span><span class="t">AI Design Environment</span><span class="y">2026</span><span class="d">Agents, rulebooks and a pipeline</span></a>
+    <a href="#web" class="t-web"><span class="logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3.6 9h16.8M3.6 15h16.8M11.5 3a17 17 0 0 0 0 18M12.5 3a17 17 0 0 1 0 18"/></svg></span><span class="t">Websites</span><span class="y">2021–22</span><span class="d">DARLI, Boston Soft Design, Impulse</span></a>
+  </nav>
+
+  <div class="sblog">
+    <span class="sblog-k">Telegram blog</span>
+    <a class="sb" href="https://t.me/bylayers"><img src="assets/logos/channels/bylayers.jpg" alt=""><span><b>По слоям</b><small>Designing internal systems</small></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+    <a class="sb" href="https://t.me/ui_storage"><img src="assets/logos/channels/ui_storage.jpg" alt=""><span><b>UI Storage</b><small>References for data products</small></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+  </div>
+  <div class="side-foot">Alekseenko ©2026 · <a href="index.html" hreflang="ru" lang="ru">Русская версия</a></div>
+</aside>
+
+<main class="feed">
+
+  <section class="panel t-dp" id="data-platform">
+    <header class="p-head">
+      <div><h2 class="p-title">Data Platform</h2></div>
+      <a class="p-link" href="cases/data-platform-en.html">Case study <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+    </header>
+    <div class="duo">
+      <a class="vcard" href="cases/data-platform-en.html">
+        <div class="stage"><div class="stage-in">
+          <img class="frag" src="assets/vignettes/n-dp-tree.png" style="--w:464;--k:1.4;left:23%;top:8%" alt="">
+          </div>
+        </div>
+        <div class="v-cap"><b>Search and profiling</b><span>Is the data there, and can it be trusted</span></div>
+      </a>
+      <a class="vcard" href="cases/data-platform-en.html">
+        <div class="stage"><div class="stage-in">
+          <img class="frag front bare" src="assets/vignettes/n-dp-lineage-group.png" style="--w:629;--k:1.87;left:2%;top:15%" alt="">
+          </div>
+        </div>
+        <div class="v-cap"><b>Lineage and data quality</b><span>Built into the object page, no separate tool</span></div>
+      </a>
+    </div>
+  </section>
+
+  <section class="panel t-se" id="service-e">
+    <header class="p-head">
+      <div><h2 class="p-title">Service E</h2></div>
+      <a class="p-link" href="cases/design-service-e-en.html">Case study <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+    </header>
+    <div class="duo">
+      <a class="vcard" href="cases/design-service-e-en.html">
+        <div class="stage"><div class="stage-in whole">
+          <img class="frag" src="assets/vignettes/n-se-stepper.png" style="--w:600;--k:1.2;left:20.5%;top:5%" alt="">
+          </div>
+        </div>
+        <div class="v-cap"><b>Errors without dead ends</b><span>What failed, at which stage, and which documents</span></div>
+      </a>
+      <a class="vcard" href="cases/design-service-e-en.html">
+        <div class="stage"><div class="stage-in">
+          <img class="frag back bare" src="assets/vignettes/n-se-route-tabs.png" style="--w:1286;--k:0.87;left:4%;top:23%" alt="">
+          </div>
+        </div>
+        <div class="v-cap"><b>A route of stages</b><span>Signing and encrypting document packages for the Central Bank</span></div>
+      </a>
+    </div>
+  </section>
+
+  <section class="panel t-crm" id="crm">
+    <header class="p-head">
+      <div><h2 class="p-title">CRM Platform</h2></div>
+      <a class="p-link" href="cases/crm-platform-en.html">Case study <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+    </header>
+    <div class="duo">
+      <a class="vcard" href="cases/crm-platform-en.html">
+        <div class="stage"><div class="stage-in">
+          <img class="frag back bare" src="assets/vignettes/n-crm-accounts.png" style="--w:800;--k:0.82;left:4.8%;top:15.8%" alt="">
+          <img class="frag front bare lift" src="assets/vignettes/n-crm-debit.png" style="--w:800;--k:0.82;left:41.7%;top:39.7%" alt="">
+          </div>
+        </div>
+        <div class="v-cap"><b>Client products in one window</b><span>Accounts and cards side by side, no jumping between sections</span></div>
+      </a>
+      <a class="vcard" href="cases/crm-platform-en.html">
+        <div class="stage"><div class="stage-in">
+          <img class="frag bare" src="assets/vignettes/n-crm-call-card.png" style="--w:1040;--k:1;left:7.6%;top:22%" alt="">
+          </div>
+        </div>
+        <div class="v-cap"><b>Request topics</b><span>What the client called and wrote about, without digging through logs</span></div>
+      </a>
+    </div>
+  </section>
+
+  <section class="panel t-card" id="card">
+    <header class="p-head">
+      <div><h2 class="p-title">Card Platform</h2></div>
+      <a class="p-link" href="cases/card-service-en.html">Case study <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+    </header>
+    <div class="duo">
+      <a class="vcard" href="cases/card-service-en.html">
+        <div class="stage"><div class="stage-in">
+          <img class="frag" src="assets/vignettes/n-cs-group-kit.png" style="--w:1568;--k:0.735;left:3%;top:8%" alt="">
+          </div>
+        </div>
+        <div class="v-cap"><b>Client cards in one window</b><span>Search by card, account or client, plus bulk actions</span></div>
+      </a>
+      <a class="vcard" href="cases/card-service-en.html">
+        <div class="stage"><div class="stage-in">
+          <img class="frag bare" src="assets/vignettes/n-cs-limit-day.png" style="--w:687;--k:1.25;left:6%;top:16%" alt="">
+          <img class="frag bare lift" src="assets/vignettes/n-cs-limit-month.png" style="--w:687;--k:1.25;left:20%;top:32%" alt="">
+          </div>
+        </div>
+        <div class="v-cap"><b>Card limits</b><span>How much of the limit is spent, with no mental math</span></div>
+      </a>
+    </div>
+  </section>
+
+  <section class="panel t-col" id="collection">
+    <header class="p-head">
+      <div><h2 class="p-title">Collection Service</h2></div>
+      <a class="p-link" href="cases/collection-service-en.html">Case study <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+    </header>
+    <div class="duo">
+      <a class="vcard" href="cases/collection-service-en.html">
+        <div class="stage"><div class="stage-in">
+          <img class="frag front bare" src="assets/vignettes/n-col-contacts-kit.png" style="--w:1347;--k:0.8;left:6%;top:22%" alt="">
+          </div>
+        </div>
+        <div class="v-cap"><b>Contacts in one widget</b><span>Phones, addresses and email in tabs, nothing hidden in tooltips</span></div>
+      </a>
+      <a class="vcard" href="cases/collection-service-en.html">
+        <div class="stage"><div class="stage-in">
+          <img class="frag" src="assets/vignettes/n-col-promise-1.png" style="--w:935;--k:1.2;left:4%;top:21%" alt="">
+          <img class="frag" src="assets/vignettes/n-col-promise-2.png" style="--w:935;--k:1.2;left:4%;top:41%" alt="">
+          <img class="frag" src="assets/vignettes/n-col-promise-3.png" style="--w:935;--k:1.2;left:4%;top:61%" alt="">
+          </div>
+        </div>
+        <div class="v-cap"><b>Promises to pay</b><span>Asset type, due date and status in one row</span></div>
+      </a>
+    </div>
+  </section>
+
+  <section class="panel t-ai" id="ai">
+    <header class="p-head">
+      <div><h2 class="p-title">AI Design Environment</h2></div>
+      <a class="p-link" href="cases/ai-environment-en.html">Case study <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+    </header>
+    <div class="duo">
+      <a class="dcard" href="cases/ai-environment-en.html">
+        <div class="dstage">
+          <img class="dlinks" src="assets/vignettes/n-ai-links.png" alt="">
+        </div>
+        <div class="v-cap"><b>Agents tied to rulebooks</b><span>Each task has its own chain of checks before “done”</span></div>
+      </a>
+      <a class="dcard" href="cases/ai-environment-en.html">
+        <div class="dstage">
+          <img class="dgrowth" src="assets/vignettes/n-ai-size.png" alt="">
+        </div>
+        <div class="v-cap"><b>The environment keeps growing</b><span>Files in the environment by week, from the first commit to today</span></div>
+      </a>
+    </div>
+  </section>
+
+  <section class="panel t-web" id="web">
+    <header class="p-head">
+      <div><h2 class="p-title">Websites</h2></div>
+    </header>
+    <div class="grid three">
+      <a class="card" draggable="false" href="cases/darli-en.html"><div class="shot full"><img src="cases/assets/darli/cover.png" alt="" loading="lazy" draggable="false"></div></a>
+      <a class="card" draggable="false" href="cases/boston-soft-design-en.html"><div class="shot full"><img src="cases/assets/boston-soft-design/cover.png" alt="" loading="lazy" draggable="false"></div></a>
+      <a class="card" draggable="false" href="cases/impulse-en.html"><div class="shot full"><img src="cases/assets/impulse/cover.png" alt="" loading="lazy" draggable="false"></div></a>
+    </div>
+  </section>
+
+  <section class="panel t-exp" id="exp">
+    <header class="p-head">
+      <div><h2 class="p-title">Experience</h2></div>
+    </header>
+    <div class="exp">
+      <div class="job"><img class="co" src="assets/logos/bank.png" alt=""><div><div class="role">Product and Service Design Expert</div><div class="org">Raiffeisenbank</div><p>Joined as an outstaff contractor and grew through middle and senior grades. The only designer on four operational products, each taken from research to release.</p></div><div class="when">Aug 2022 – present</div></div>
+      <div class="job"><img class="co" src="assets/logos/chulakov.png" alt=""><div><div class="role">UI Designer</div><div class="org">Oleg Chulakov Studio</div><p>Expert reviews of banking apps on three axes: UX, UI and Human.</p></div><div class="when">Mar – Apr 2022</div></div>
+      <div class="job"><img class="co" src="assets/logos/freelance.png" alt=""><div><div class="role">UI Designer</div><div class="org">Freelance</div><p>The full cycle on my own: analysis, structure, interface, front-end.</p></div><div class="when">Jan 2021 – Mar 2022</div></div>
+      <div class="job"><img class="co" src="assets/logos/upakuem.png" alt=""><div><div class="role">Before design</div><div class="org">Management, marketing</div><p>Where I picked up the habit of counting money and speaking the language of business.</p></div><div class="when">2019 – 2021</div></div>
+    </div>
+    <div class="contact">
+      <h2>Tell me about your product.</h2>
+      <a class="btn" href="mailto:dmalxux@gmail.com">Get in touch</a>
+    </div>
+  </section>
+
+</main>
+</div>
+
+<script>
+// аватарку нажали и держат: иконки разъехались; отпустили или увели палец — вернулись
+const avaWrap=document.querySelector('.ava-wrap');
+const spread=on=>avaWrap.classList.toggle('spread',on);
+avaWrap.querySelector('.ava').addEventListener('pointerdown',e=>{e.preventDefault();spread(true)});
+avaWrap.addEventListener('contextmenu',e=>e.preventDefault());
+['pointerup','pointercancel','blur'].forEach(t=>addEventListener(t,()=>spread(false)));
+const links=[...document.querySelectorAll('.nav a')];
+const panels=[...document.querySelectorAll('.panel')];
+// подсветка пункта по панели в центре экрана
+const spy=new IntersectionObserver(es=>{
+  es.forEach(e=>{ if(e.isIntersecting){ links.forEach(l=>l.classList.toggle('on',l.hash==='#'+e.target.id)); } });
+},{rootMargin:'-45% 0px -50% 0px'});
+// появление панелей
+const rv=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); rv.unobserve(e.target);} }),{rootMargin:'0px 0px -8% 0px'});
+panels.forEach(p=>{spy.observe(p);rv.observe(p);});
+// карусели: тянуть мышью, колесо мыши листает по горизонтали
+document.querySelectorAll('.grid').forEach(g=>{
+  let x0=0,s0=0,down=false,moved=false;
+  g.addEventListener('pointerdown',e=>{ if(e.pointerType!=='mouse')return; e.preventDefault(); down=true;moved=false;x0=e.clientX;s0=g.scrollLeft; });
+  addEventListener('pointermove',e=>{ if(!down)return; const dx=e.clientX-x0; if(Math.abs(dx)>4){moved=true;g.classList.add('drag');} if(moved)g.scrollLeft=s0-dx; });
+  addEventListener('pointerup',()=>{ if(!down)return; down=false; if(moved)g.classList.remove('drag'); });
+  g.addEventListener('dragstart',e=>e.preventDefault());
+  g.addEventListener('click',e=>{ if(moved){e.preventDefault();moved=false;} },true);
+});
+</script>
+<script src="assets/smooth-scroll.js" defer></script>
+</body>
+</html>

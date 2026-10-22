@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="alternate" hreflang="en" href="index-en.html">
 <title>Дмитрий Алексеенко | Продуктовый дизайнер</title>
 <link rel="icon" href="favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -251,6 +252,15 @@ img{display:block;max-width:100%}
   .contact{flex-direction:column;align-items:flex-start;padding:32px 8px 24px}
   .contact h2{font-size:30px}
 }
+.side-foot a{transition:color .2s}
+@media(hover:hover){.side-foot a:hover{color:var(--ink)}}
+/* язык: кнопка с иконкой перевода, по клику другая версия, при наведении темнеет */
+.lang{position:relative;display:grid;place-items:center;width:32px;height:32px;border-radius:999px;background:var(--soft);color:var(--ink-2);transition:background .2s,color .2s}
+.lang .txt{font-size:11px;font-weight:700;letter-spacing:.02em}
+@media(hover:hover){.lang:hover{background:#e9eaef;color:var(--ink)}}
+.me{position:relative}
+.me>.lang{position:absolute;top:-16px;left:-8px}
+@media (max-width:860px){.me>.lang{top:24px;left:24px}}
 </style>
 </head>
 <body>
@@ -258,6 +268,7 @@ img{display:block;max-width:100%}
 
 <aside class="side">
   <div class="me">
+    <a class="lang" href="index-en.html" hreflang="en" lang="en" aria-label="English version"><span class="txt">EN</span></a>
     <div class="me-top">
       <div class="ava-wrap" aria-label="Работаю с Claude Code, Antigravity IDE, Storybook и Handy">
         <img class="ava" src="avatar-v3.jpg" alt="Дмитрий Алексеенко"><span class="gift" title="Handy" aria-label="Handy" style="--x:-48px;--y:40px;--d:1.9s;--s:28px"><img src="assets/logos/tools/handy.png" alt="" style="width:100%;height:100%;display:block"></span>
@@ -293,7 +304,7 @@ img{display:block;max-width:100%}
     <a class="sb" href="https://t.me/bylayers"><img src="assets/logos/channels/bylayers.jpg" alt=""><span><b>По слоям</b><small>Дизайн внутренних систем</small></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
     <a class="sb" href="https://t.me/ui_storage"><img src="assets/logos/channels/ui_storage.jpg" alt=""><span><b>UI Storage</b><small>Референсы data-продуктов</small></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
   </div>
-  <div class="side-foot">Алексеенко ©2026</div>
+  <div class="side-foot">Алексеенко ©2026 · <a href="index-en.html" hreflang="en" lang="en">English version</a></div>
 </aside>
 
 <main class="feed">
