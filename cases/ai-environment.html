@@ -219,7 +219,16 @@ main.col{padding-bottom:96px}
       <div><dt>Роль</dt><dd>Автор среды</dd></div>
       <div><dt>Формат</dt><dd>Личная рабочая среда в git</dd></div>
       <div><dt>Инструменты</dt><dd>Claude Code, Figma MCP, Storybook</dd></div>
+      <div><dt>Доклад</dt><dd>Закрытый митап Ozon</dd></div>
     </dl>
+  </section>
+
+  <section class="sec rv">
+    <h2>Доклад на митапе Ozon</h2>
+    <p>Рассказал о среде на закрытом митапе Ozon с докладом «ИИ как сотрудник с регламентом»: почему агенту нужен не удачный промпт, а свод правил, роль и самопроверка, как у сотрудника на новом месте.</p>
+    <div class="plate">
+      <img class="shot-dark" src="assets/ai-environment/mitap-ozon.jpg" alt="Кадр с митапа: слайд «Из чего состоит среда» и докладчик в окне видеосвязи">
+    </div>
   </section>
 
   <section class="sec rv">
@@ -254,6 +263,12 @@ main.col{padding-bottom:96px}
   <section class="sec rv">
     <h2>Подход</h2>
     <p><b>ИИ без правил выдаёт корректный, но никакой экран.</b> Правила вычитают плохое, но силы не прибавляют, а типовые приметы нейронки видны сразу: индиго-акценты, эмодзи вместо иконок, стерильные данные. Поэтому я не пишу промпты под каждую задачу: знания живут в сводах, а работу ведут агенты, которые эти своды читают.</p>
+    <div class="plate">
+      <img class="shot-dark" src="assets/ai-environment/slayd-chat-i-sreda.jpg" alt="Слайд доклада «Чат помнит разговор. Среда помнит правила»: чем работа в чате отличается от работы в среде" loading="lazy">
+    </div>
+    <div class="plate">
+      <img class="shot-dark" src="assets/ai-environment/slayd-iz-oshibok.jpg" alt="Слайд доклада «Среда выросла из ошибок, а не из плана»: коммиты по месяцам с июня по октябрь и что появилось в каждом" loading="lazy">
+    </div>
   </section>
 
   <section class="sec rv">
@@ -265,16 +280,18 @@ main.col{padding-bottom:96px}
       <li><span class="n">04</span><div><div class="t">Самопроверка до слова «готово»</div><div class="w">Рендер и скриншот, аудит отступов, деслоп, детектор наложений в Figma. Успешный ответ инструмента ещё не значит, что получилось задуманное.</div></div></li>
     </ol>
     <div class="plate">
-      <img class="shot-dark" src="assets/ai-environment/put-zadachi.png" alt="Схема из пульта среды: путь задачи от просьбы в чате до коммита и сторожа утечек" loading="lazy">
+      <img class="shot-dark" src="assets/ai-environment/slayd-svyazi.jpg" alt="Слайд доклада «Как части среды связаны друг с другом»: CLAUDE.md, агент, скиллы, память и результат" loading="lazy">
     </div>
-    <p class="cap">Схема из пульта среды: самопроверка возвращает работу в сборку, пока есть находки, сторож останавливает коммит с утечкой.</p>
+    <div class="plate">
+      <img class="shot-dark" src="assets/ai-environment/slayd-samoproverka.jpg" alt="Слайд доклада «Готово только после самопроверки»: скриншот, наложения, отступы и антислоп" loading="lazy">
+    </div>
   </section>
 
   <section class="sec rv">
     <h2>Агенты по контурам</h2>
     <p>Контуры различаются только сводом и способом самопроверки, маршрут у всех один: прочитать свод, собрать, проверить себя, положить по правилу.</p>
     <div class="plate">
-      <img class="shot-dark" src="assets/ai-environment/karta-agentov.png" alt="Карта среды из пульта: агенты, свои скиллы и роутеры, линии показывают, кто кого использует" loading="lazy">
+      <img class="shot-dark" src="assets/ai-environment/slayd-agenty-skilly.jpg" alt="Слайд доклада «Агенты делают, скиллы задают правила»: одни и те же скиллы на входе задают паттерн, на выходе проверяют работу агента" loading="lazy">
     </div>
   </section>
 
@@ -282,38 +299,18 @@ main.col{padding-bottom:96px}
     <h2>Своды и скиллы</h2>
     <p><b>Свод это файл правил, скилл подключает его по имени.</b> Восемь своих скиллов зовутся напрямую, внешние паки спрятаны за четырьмя роутерами групп, чтобы не засорять выбор. Новый скилл ставится только по протоколу онбординга, а не закидывается в папку как есть.</p>
     <div class="plate">
-      <div class="skills">
-        <div class="sk">
-          <div class="sk-h">Свои скиллы</div>
-          <div class="sk-row"><code>design-realism</code><span>Приметы живого продукта до сборки: неровные данные, служебная обвязка, неидеальные состояния</span></div>
-          <div class="sk-row"><code>design-human-ai</code><span>39 правил интерфейсов с ИИ: на входе выбор паттерна, на выходе аудит</span></div>
-          <div class="sk-row"><code>spacing-audit</code><span>Отступы по шкале 4/8, компоненты дизайн-системы не трогает</span></div>
-          <div class="sk-row"><code>design-anti-slop</code><span>Чистка примет нейросети по каталогу из 29 пунктов</span></div>
-          <div class="sk-row"><code>ds-build</code><span>Сборка экрана в Figma из индекса дизайн-системы: план текстом, потом инстансы</span></div>
-          <div class="sk-row"><code>ds-ingest</code><span>Внесение большой дизайн-системы в компактный индекс порциями</span></div>
-          <div class="sk-row"><code>refs-to-decisions</code><span>Лист референсов и лист решений до макета</span></div>
-          <div class="sk-row"><code>heuristic-evaluation</code><span>Оценка по эвристикам Нильсена и разбор композиции</span></div>
-        </div>
-        <div class="sk routers">
-          <div class="sk-h">Внешние паки за роутерами</div>
-          <div class="sk-g"><b>web-aesthetics</b><p>9 скиллов: арт-дирекшн, эстетики, редизайн сайта, стили брендов, палитры и шрифтовые пары</p></div>
-          <div class="sk-g"><b>brand-assets</b><p>6 скиллов: айдентика, баннеры, презентации, токены своего проекта, 3D на Three.js</p></div>
-          <div class="sk-g"><b>ui-review</b><p>2 скилла: структурный фидбек по макету и проверка вёрстки по гайдлайнам</p></div>
-          <div class="sk-g"><b>text-and-meta</b><p>9 скиллов: очистка текста от примет ИИ, проверка фактов, промпты, онбординг скиллов, турнир субагентов</p></div>
-        </div>
-      </div>
+      <img class="shot-dark" src="assets/ai-environment/slayd-oshibka-raz.jpg" alt="Слайд доклада «Ошибку чинят один раз»: ошибка становится правилом свода, правило становится инструментом проверки" loading="lazy">
     </div>
-    <div class="plate">
-      <img class="shot-dark" src="assets/ai-environment/svody.png" alt="Таблица сводов из пульта среды: когда какой свод читается и о чём он" loading="lazy">
-    </div>
-    <p class="cap">Таблица сводов из пульта: порядок аудитов на выходе фиксирован, сначала отступы, потом антислоп, потом правила ИИ.</p>
   </section>
 
   <section class="sec rv">
     <h2>Дизайн-система и кит</h2>
     <p>Одна дизайн-система, два пути сборки. Макет в Figma собирается по индексу библиотеки инстансами компонентов, HTML-прототип собирается на ките с настоящими React-компонентами, токенами, шрифтами и иконками набора. Разметку компонентов руками агенты не повторяют: она разъезжается с китом на первом же обновлении.</p>
     <div class="plate">
-      <img class="shot-dark" src="assets/ai-environment/ds-i-kit.png" alt="Схема из пульта среды: библиотеки в Figma, индексы, кит в Storybook и два пути сборки" loading="lazy">
+      <img class="shot-dark" src="assets/ai-environment/slayd-kit.jpg" alt="Слайд доклада «Кит дизайн-системы в Storybook»: путь от библиотеки в Figma до прототипа, 78 компонентов, 257 токенов, 945 иконок" loading="lazy">
+    </div>
+    <div class="plate">
+      <img class="shot-dark" src="assets/ai-environment/slayd-kit-uskoril.jpg" alt="Слайд доклада «Кит ускорил прототипы»: таблица каталога в июне на сгенерированном HTML и сейчас на ките Storybook" loading="lazy">
     </div>
   </section>
 
@@ -338,6 +335,12 @@ main.col{padding-bottom:96px}
       </div>
       <div class="loop"><span>↺ правки, пока человек не согласится</span><span>файл этапа становится входом следующего</span></div>
     </div>
+    <div class="plate">
+      <img class="shot-dark" src="assets/ai-environment/slayd-pipeline.jpg" alt="Слайд доклада «Пайплайн проектирования»: пять этапов от брифа до User Flow и одни ворота на каждом" loading="lazy">
+    </div>
+    <div class="plate">
+      <img class="shot-dark" src="assets/ai-environment/slayd-vyhod.jpg" alt="Слайд доклада «Что получается на выходе»: markdown-файлы задачи и те же артефакты на доске FigJam" loading="lazy">
+    </div>
   </section>
 
   <section class="sec rv">
@@ -346,6 +349,12 @@ main.col{padding-bottom:96px}
       <div class="num"><div class="big">328</div><div class="d">Коммитов в среду</div></div>
       <div class="num"><div class="big">13</div><div class="d">Агентов, у каждого свод и самопроверка</div></div>
       <div class="num"><div class="big">64</div><div class="d">Подхода к 11 узлам интерфейса в репертуаре</div></div>
+    </div>
+    <div class="plate">
+      <img class="shot-dark" src="assets/ai-environment/slayd-pult.jpg" alt="Слайд доклада «Пульт среды»: что в работе, этап и следующий шаг по каждой задаче" loading="lazy">
+    </div>
+    <div class="plate">
+      <img class="shot-dark" src="assets/ai-environment/slayd-zdorovie.jpg" alt="Слайд доклада «Среда следит за собой»: рост среды и проверки здоровья" loading="lazy">
     </div>
   </section>
 
