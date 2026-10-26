@@ -515,8 +515,9 @@ document.querySelectorAll('.grid').forEach(g=>{
 (()=>{const v=document.querySelector('.ava-intro');if(!v)return
 const end=()=>{v.classList.add('done');setTimeout(()=>v.remove(),500)}
 if(matchMedia('(prefers-reduced-motion:reduce)').matches)return v.remove()
-let seen=false;try{seen=sessionStorage.getItem('ava-intro')==='1';sessionStorage.setItem('ava-intro','1')}catch(e){}
-if(seen)return v.remove()
+const nav=(performance.getEntriesByType&&performance.getEntriesByType('navigation')[0]||{}).type
+let inner=false;try{inner=new URL(document.referrer).origin===location.origin}catch(e){}
+if(nav!=='reload'&&(inner||nav==='back_forward'))return v.remove()
 const vid=v.querySelector('video')
 let done=false;const fin=()=>{if(!done){done=true;end()}}
 vid.addEventListener('timeupdate',()=>{if(vid.currentTime>=7.75)fin()})
