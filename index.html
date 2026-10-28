@@ -519,8 +519,8 @@ let inner=false;try{inner=new URL(document.referrer).origin===location.origin}ca
 if(nav!=='reload'&&(inner||nav==='back_forward'))return v.remove()
 const vid=v.querySelector('video')
 let done=false;const fin=()=>{if(!done){done=true;end()}}
-vid.addEventListener('timeupdate',()=>{if(vid.currentTime>=7.75)fin()})
-vid.addEventListener('ended',fin);vid.addEventListener('error',fin)
+vid.addEventListener('ended',()=>vid.pause())
+vid.addEventListener('error',fin)
 const p=vid.play();if(p)p.catch(fin)})()
 </script>
 </body>
